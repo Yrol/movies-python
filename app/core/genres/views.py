@@ -1,4 +1,3 @@
-from cgitb import lookup
 from core.common.view.base_views import BaseCreateAPIView, BaseListAPIView, BaseUpdateAPIView, BaseRetrieveAPIView
 from core.genres.serializers.genres_serializer import GenresSerializer
 from core.models import Genre
