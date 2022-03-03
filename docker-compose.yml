@@ -28,7 +28,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_DB=app
+      - POSTGRES_DB=watchmate
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
       
