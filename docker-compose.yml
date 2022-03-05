@@ -14,7 +14,7 @@ services:
              python manage.py runserver 0.0.0.0:8000"
     environment:
       - DB_HOST=db
-      - DB_NAME=app
+      - DB_NAME=watchmate
       - DB_USER=postgres
       - DB_PASS=password
       - PORT=5432

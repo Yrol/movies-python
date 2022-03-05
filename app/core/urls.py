@@ -1,7 +1,7 @@
 from django.conf.urls import include
 from django.urls import path, re_path
 from rest_framework import routers
-from core.movies.views import MoviesListView, MoviesRetrieveView, MovieCreateView
+from core.movies.views import MoviesListView, MoviesRetrieveView, MovieCreateView, MovieUpdateView
 from core.genres.views import GenreCreateView, GenreListView, GenreUpdateView, GenreRetrieveView
 
 router = routers.SimpleRouter()
@@ -17,6 +17,7 @@ urlpatterns = [
     re_path(r'^genres/(?P<pk>[0-9]+)$', GenreRetrieveView.as_view(), name=GenreRetrieveView.name),
     
     re_path(r'^movie/$', MovieCreateView.as_view(), name=MovieCreateView.name),
+    re_path(r'^movie/(?P<pk>[0-9]+)$', MovieUpdateView.as_view(), name=MovieUpdateView.name),
     re_path(r'^movies/$', MoviesListView.as_view(), name=MoviesListView.name),
     re_path(r'^movies/(?P<pk>[0-9]+)$', MoviesRetrieveView.as_view(), name=MoviesRetrieveView.name),
 ]

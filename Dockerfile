@@ -15,6 +15,7 @@ RUN apk add --update --no-cache --virtual .tmp-build-deps \
 RUN pip install -r /tmp/requirements.txt
 
 RUN pip install -U autopep8
+RUN pip install drf_writable_nested
 RUN apk del .tmp-build-deps
 
 RUN mkdir /app

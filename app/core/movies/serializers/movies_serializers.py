@@ -1,13 +1,16 @@
+from core import models
 from core.models import Genre
 from core.genres.serializers.genres_serializer import GenresSerializer
 from core.common.serializers.base import BaseModelSerializer
 from core.models import Movies
 from django.forms import ValidationError
 from django.db import transaction
+from rest_framework import serializers
+from drf_writable_nested import WritableNestedModelSerializer
 
 
-class MoviesSerializer(BaseModelSerializer):
-    
+
+class MoviesSerializer(BaseModelSerializer, WritableNestedModelSerializer):
     genre = GenresSerializer(required=False, allow_null=True)
     
     class Meta:
@@ -17,9 +20,6 @@ class MoviesSerializer(BaseModelSerializer):
     @transaction.atomic
     def create(self, validated_data):
         
-        print('movie create starte')
-        print(validated_data)
-        
         genre = validated_data.pop('genre', None)
         
         if not genre:
@@ -28,7 +28,6 @@ class MoviesSerializer(BaseModelSerializer):
         # already required in the model
         # if not genre['name']:
         #     raise ValidationError('Invalid Genre')
-        
         try:
             current_genre = Genre.objects.get(name__iexact=genre['name'])
         except(Genre.DoesNotExist):

@@ -1,3 +1,4 @@
+from core.common.view.base_views import BaseUpdateAPIView
 from core.common.view.base_views import BaseRetrieveAPIView, BaseCreateAPIView
 from core.models import Movies
 from core.movies.serializers.movies_serializers import MoviesSerializer
@@ -32,4 +33,9 @@ class MovieCreateView(BaseCreateAPIView):
     queryset = Movies.objects.all()
     serializer_class = MoviesSerializer
     name = 'create-movie'
-    
+
+
+class MovieUpdateView(BaseUpdateAPIView):
+    queryset = Movies.objects.all()
+    serializer_class = MoviesSerializer
+    name = 'update-movie'
