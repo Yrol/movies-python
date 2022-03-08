@@ -1,13 +1,11 @@
-from core import models
 from core.models import Genre
 from core.genres.serializers.genres_serializer import GenresSerializer
 from core.common.serializers.base import BaseModelSerializer
 from core.models import Movies
 from django.forms import ValidationError
 from django.db import transaction
-from rest_framework import serializers
 from drf_writable_nested import WritableNestedModelSerializer
-
+from rest_framework.exceptions import APIException
 
 
 class MoviesSerializer(BaseModelSerializer, WritableNestedModelSerializer):
@@ -16,6 +14,13 @@ class MoviesSerializer(BaseModelSerializer, WritableNestedModelSerializer):
     class Meta:
         model = Movies
         fields = ('name', 'genre', 'description',)
+        
+    def validate_name(self, value):
+        if self.instance is None or self.instance.name != value:
+            queryset = self.Meta.model.objects.filter(name=value)
+            if queryset.exists() and (self.field_name is None):
+                raise APIException("Movie with the name {} already exists.".format(value))
+        return value
         
     @transaction.atomic
     def create(self, validated_data):
